@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0b6623, #0f7a2e, #0b6623);
+    background-size: 300% 300%;
+    animation: bgAnimation 10s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+header.header {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    background: rgba(0,0,0,0.2);
+}
+
+header.header .logo {
+    width: auto;
+    height: 100px;
+    object-fit: contain;
+}
+
+@keyframes bgAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.success-container {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 40px;
+    width: 90%;
+    max-width: 420px;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.icon-box {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border-radius: 50%;
+    background: #2ecc71;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pop 0.6s ease-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.checkmark {
+    font-size: 55px;
+    font-weight: bold;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+.msg {
+    margin: 10px 0;
+    font-size: 17px;
+}
+
+.ref {
+    margin: 15px 0;
+    background: rgba(0,0,0,0.2);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    word-break: break-all;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: #145a32;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #0b3d1f;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 600px) {
+    header.header {
+        padding: 10px;
+    }
+
+    header.header .logo {
+        width: auto;
+        height: 70px;
+    }
+
+    body {
+        padding: 10px;
+    }
+    .success-container {
+        width: 95%;
+        max-width: 350px;
+        padding: 20px;
+    }
+    .icon-box {
+        width: 60px;
+        height: 60px;
+        margin: 20px auto;
+    }
+    .checkmark {
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+    }
+    h1 {
+        font-size: 1.4rem;
+        margin: 15px 0;
+    }
+    p {
+        font-size: 0.95rem;
+        margin: 10px 0;
+    }
+    .btn {
+        padding: 10px 18px;
+        font-size: 15px;
+        margin-top: 15px;
+    }
+}

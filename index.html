@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop affordable poultry equipment, veterinary drugs, and day-old chicks online. Nationwide delivery. Order now from Exceptional Farms.">
+    <meta name="keywords" content="poultry equipment, chicken feeders, drinkers, veterinary drugs, day-old chicks, poultry supplies Ghana">
+    <meta name="author" content="Exceptional Farms">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://exceptionalfarms.gh/index.html">
+    <meta property="og:title" content="Exceptional Farms - Poultry Equipment &amp; Supplies">
+    <meta property="og:description" content="Your one-stop shop for poultry equipment, medications, and day-old chicks. Affordable. Reliable. Nationwide Delivery.">
+    <meta property="og:url" content="https://exceptionalfarms.gh/index.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://exceptionalfarms.gh/Assets/logo.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Exceptional Farms">
+    <meta name="twitter:description" content="Premium poultry equipment and supplies">
+    <title>Exceptional Farms - Poultry Equipment, Drugs &amp; Chicks | Home</title>
+    <link rel="icon" type="image/x-icon" href="Assets/favicon.ico">
+    <link rel="apple-touch-icon" href="Assets/logo.jpg">
+    <link rel="stylesheet" href="Assets/index.css">
+    <link rel="preload" as="image" href="Assets/logo.jpg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Exceptional Farms",
+        "image": "https://exceptionalfarms.gh/Assets/logo.jpg",
+        "description": "Your one-stop shop for poultry equipment, medications, and day-old chicks.",
+        "url": "https://exceptionalfarms.gh",
+        "telephone": "+233542934796",
+        "priceRange": "GH₵₵",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "GH"
+        },
+        "areaServed": "Ghana",
+        "knowsAbout": ["Poultry Equipment", "Veterinary Drugs", "Day-old Chicks", "Chicken Feeders", "Chicken Drinkers"]
+    }
+    </script>
+</head>
+<body>
+
+<header>
+    <img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo">
+    <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle navigation menu">&#9776;</div>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">Cart</a>
+</nav>
+
+
+<div class="category-bar">
+    <a href="products.html?category=equipment" class="cat-btn">Equipment</a>
+    <a href="products.html?category=drugs" class="cat-btn">Veterinary Drugs</a>
+    <a href="products.html?category=chicks" class="cat-btn">Day-old Chicks</a>
+</div>
+
+
+<div class="subcategory-bar">
+    <a href="products.html?category=feeders" class="sub-btn">Feeders</a>
+    <a href="products.html?category=drinkers" class="sub-btn">Drinkers</a>
+    <a href="products.html?category=others" class="sub-btn">Others</a>
+</div>
+
+<section class="hero">
+    <h1>Your One-Stop Shop for Poultry Equipment, Medications and Day-old Chicks</h1>
+    <p>Affordable. Reliable. Nationwide Delivery.</p>
+    <a href="products.html" class="btn">Shop Now</a>
+</section>
+
+<section class="products">
+    <h2>Featured Products</h2>
+    <div class="grid">
+        <a href="products.html?category=feeders" class="item">Feeders</a>
+        <a href="products.html?category=drinkers" class="item">Drinkers</a>
+        <a href="products.html?category=others" class="item">Syringes</a>
+        <a href="products.html?category=others" class="item">Debeakers</a>
+    </div>
+</section>
+
+<footer>
+    © 2026 Exceptional Farms — 0542934796
+    <div class="legal-links">
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="terms.html">Terms &amp; Conditions</a> |
+        <a href="disclaimer.html">Disclaimer</a> |
+        <a href="return.html">Return Policy</a> |
+        <a href="shipping.html">Shipping Policy</a>
+    </div>
+</footer>
+
+<a href="https://wa.me/233544223416" class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<script>
+function toggleMenu() {
+    document.querySelector("nav").classList.toggle("show");
+}
+
+
+const categoryBar = document.querySelector(".category-bar");
+const subcategoryBar = document.querySelector(".subcategory-bar");
+
+if (categoryBar && subcategoryBar) {
+    categoryBar.addEventListener("mouseenter", () => {
+        subcategoryBar.style.display = "flex";
+    });
+    
+    categoryBar.addEventListener("mouseleave", () => {
+        if (!subcategoryBar.matches(":hover")) {
+            subcategoryBar.style.display = "none";
+        }
+    });
+    
+    subcategoryBar.addEventListener("mouseenter", () => {
+        subcategoryBar.style.display = "flex";
+    });
+    
+    subcategoryBar.addEventListener("mouseleave", () => {
+        subcategoryBar.style.display = "none";
+    });
+}
+</script>
+
+</body>
+</html>

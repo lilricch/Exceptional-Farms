@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Exceptional Farms</title>
+    <link rel="stylesheet" href="Assets/success.css">
+    <style>
+        header .logo {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        @media (max-width: 768px) {
+            header .logo {
+                height: 95px;
+            }
+        }
+        @media (max-width: 576px) {
+            header .logo {
+                height: 85px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo">
+</header>
+
+<div class="success-container">
+
+    <div class="icon-box">
+        <div class="checkmark">✔</div>
+    </div>
+
+    <h1>Payment Successful!</h1>
+
+    <p class="msg">Thank you for your purchase. Your payment was completed successfully.</p>
+
+    <p class="ref">
+        <strong>Payment Reference:</strong> 
+        <span id="pay-ref">Loading...</span>
+    </p>
+
+    <a href="products.html" class="btn">Continue Shopping</a>
+
+</div>
+
+<footer>
+    © 2026 Exceptional Farms
+    <div class="legal-links">
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="terms.html">Terms &amp; Conditions</a> |
+        <a href="disclaimer.html">Disclaimer</a> |
+        <a href="return.html">Return Policy</a> |
+        <a href="shipping.html">Shipping Policy</a>
+    </div>
+</footer>
+
+<script>
+    let urlParams = new URLSearchParams(window.location.search);
+    let reference = urlParams.get("ref");
+
+    document.getElementById("pay-ref").textContent = reference || "Unavailable";
+</script>
+
+</body>
+</html>

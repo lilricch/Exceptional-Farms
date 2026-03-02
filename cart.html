@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Review your shopping cart and proceed to checkout. Fast, secure payment with Paystack. Free delivery on orders over GH₵100.">
+    <meta name="keywords" content="shopping cart, checkout, payment, poultry equipment, secure payment">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://exceptionalfarms.gh/cart.html">
+    <meta property="og:title" content="Shopping Cart - Exceptional Farms">
+    <meta property="og:description" content="Checkout your poultry equipment order securely.">
+    <meta property="og:type" content="website">
+    <title>Shopping Cart - Exceptional Farms | Secure Checkout</title>
+    <link rel="icon" type="image/x-icon" href="Assets/favicon.ico">
+    <link rel="apple-touch-icon" href="Assets/logo.jpg">
+
+    <link rel="stylesheet" href="Assets/cart.css">
+    <style>
+        header .logo {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        @media (max-width: 768px) {
+            header .logo {
+                height: 95px;
+            }
+        }
+        @media (max-width: 576px) {
+            header .logo {
+                height: 85px;
+            }
+        }
+    </style>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+<body>
+
+
+<header>
+    <img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo">
+
+    <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation menu">☰</div>
+
+    <nav id="nav-menu" role="navigation" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="active">Cart</a>
+    </nav>
+</header>
+
+
+<div class="category-bar">
+    <a href="products.html?category=equipment" class="cat-btn">Equipment</a>
+    <a href="products.html?category=drugs" class="cat-btn">Veterinary Drugs</a>
+    <a href="products.html?category=chicks" class="cat-btn">Day-Old Chicks</a>
+</div>
+
+<div class="subcategory-bar">
+    <a href="products.html?category=feeders" class="sub-btn">Feeders</a>
+    <a href="products.html?category=drinkers" class="sub-btn">Drinkers</a>
+    <a href="products.html?category=others" class="sub-btn">Others</a>
+</div>
+
+
+<div class="cart-container">
+    <h2>Your Cart</h2>
+
+    <table id="cart-table">
+        <tr>
+            <th>Product</th>
+            <th>Price (GH₵)</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+    </table>
+
+    <div class="total-box">
+        <strong>Grand Total: GH₵ <span id="cart-total">0.00</span></strong>
+    </div>
+
+    <div class="payment-section">
+        <h2>Checkout Information</h2>
+
+        
+        <div class="checkout-form">
+            <h3>Delivery Details</h3>
+            
+            <div class="form-group">
+                <label for="customer-name">Full Name *</label>
+                <input type="text" id="customer-name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="customer-phone">Phone Number *</label>
+                <input type="tel" id="customer-phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="customer-address">Delivery Address *</label>
+                <textarea id="customer-address" placeholder="Enter your full delivery address" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="customer-email">Email Address *</label>
+                <input type="email" id="customer-email" placeholder="Enter your email for receipt" required>
+            </div>
+        </div>
+
+
+        <h3>Payment Method</h3>
+        <div class="payment-options">
+            <label><input type="radio" name="payment" value="Paystack" checked> Paystack</label>
+        </div>
+
+        <button class="checkout-btn" onclick="checkout()">Complete Payment</button>
+    </div>
+</div>
+
+
+<a href="https://wa.me/233544223416" class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<footer>
+    © 2026 Exceptional Farms
+    <div class="legal-links">
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="terms.html">Terms &amp; Conditions</a> |
+        <a href="disclaimer.html">Disclaimer</a> |
+        <a href="return.html">Return Policy</a> |
+        <a href="shipping.html">Shipping Policy</a>
+    </div>
+</footer>
+
+<script>
+
+function toggleMenu() {
+    document.getElementById("nav-menu").classList.toggle("active");
+}
+
+
+function loadCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let table = document.getElementById("cart-table");
+    let grandTotal = 0;
+
+    cart.forEach((item, index) => {
+        let row = table.insertRow();
+
+        row.insertCell(0).innerHTML = item.name;
+        row.insertCell(1).innerHTML = item.price.toFixed(2);
+
+
+        let qtyCell = row.insertCell(2);
+        qtyCell.innerHTML = `
+            <div class="qty-box">
+                <button onclick="changeQty(${index}, -1)">-</button>
+                <input type="number" min="1" value="${item.qty || 1}" onchange="updateQty(${index}, this.value)">
+                <button onclick="changeQty(${index}, 1)">+</button>
+            </div>
+        `;
+
+        let itemTotal = item.price * (item.qty || 1);
+        row.insertCell(3).innerHTML = itemTotal.toFixed(2);
+
+
+        let removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "Remove";
+        removeBtn.className = "remove-btn";
+        removeBtn.onclick = function() {
+            removeItem(index);
+        };
+        row.insertCell(4).appendChild(removeBtn);
+
+        grandTotal += itemTotal;
+    });
+
+    document.getElementById("cart-total").innerHTML = grandTotal.toFixed(2);
+}
+
+
+function changeQty(index, amount) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (!cart[index].qty) cart[index].qty = 1;
+
+    cart[index].qty += amount;
+
+    if (cart[index].qty < 1) cart[index].qty = 1;
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+}
+
+function updateQty(index, value) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let qty = parseInt(value);
+
+    if (isNaN(qty) || qty < 1) qty = 1;
+
+    cart[index].qty = qty;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+}
+
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+}
+
+
+function checkout() {
+    let paymentMethod = document.querySelector("input[name='payment']:checked");
+    
+
+    let customerName = document.getElementById("customer-name").value.trim();
+    let customerPhone = document.getElementById("customer-phone").value.trim();
+    let customerAddress = document.getElementById("customer-address").value.trim();
+    let customerEmail = document.getElementById("customer-email").value.trim();
+
+
+    if (!customerName) {
+        alert("Please enter your full name.");
+        return;
+    }
+
+    if (!customerPhone || customerPhone.length < 9) {
+        alert("Please enter a valid phone number.");
+        return;
+    }
+
+    if (!customerAddress) {
+        alert("Please enter your delivery address.");
+        return;
+    }
+
+    if (!customerEmail) {
+        alert("Please enter your email address.");
+        return;
+    }
+
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(customerEmail)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    if (!paymentMethod) {
+        alert("Please select a payment method.");
+        return;
+    }
+
+    let total = Number(document.getElementById("cart-total").innerText);
+
+
+    if (paymentMethod.value !== "Paystack") {
+        alert("Payment Method: " + paymentMethod.value + 
+              "\n\nOrder Details:\nName: " + customerName + 
+              "\nPhone: " + customerPhone + 
+              "\nAddress: " + customerAddress + 
+              "\nEmail: " + customerEmail + 
+              "\nTotal: GH₵ " + total.toFixed(2) + 
+              "\n\nMobile money integration coming soon.");
+        return;
+    }
+
+    let handler = PaystackPop.setup({
+        key: "pk_test_9a412e4c79548be29be58ae0fcfa0125e3a71908",
+        email: customerEmail,
+        amount: total * 100,
+        currency: "GHS",
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: "Customer Name",
+                    variable_name: "customer_name",
+                    value: customerName
+                },
+                {
+                    display_name: "Phone Number",
+                    variable_name: "phone_number",
+                    value: customerPhone
+                },
+                {
+                    display_name: "Delivery Address",
+                    variable_name: "delivery_address",
+                    value: customerAddress
+                },
+                {
+                    display_name: "Cart Items",
+                    variable_name: "cart_items",
+                    value: JSON.stringify(JSON.parse(localStorage.getItem("cart")) || [])
+                }
+            ]
+        },
+
+        callback: function(response) {
+            localStorage.removeItem("cart");
+            window.location.href = "success.html?ref=" + response.reference;
+        },
+
+        onClose: function() {
+            alert("Payment window closed.");
+        }
+    });
+
+    handler.openIframe();
+}
+
+const categoryBar = document.querySelector(".category-bar");
+const subcategoryBar = document.querySelector(".subcategory-bar");
+
+if (categoryBar && subcategoryBar) {
+    categoryBar.addEventListener("mouseenter", () => {
+        subcategoryBar.style.display = "flex";
+    });
+    
+    categoryBar.addEventListener("mouseleave", () => {
+        if (!subcategoryBar.matches(":hover")) {
+            subcategoryBar.style.display = "none";
+        }
+    });
+    
+    subcategoryBar.addEventListener("mouseenter", () => {
+        subcategoryBar.style.display = "flex";
+    });
+    
+    subcategoryBar.addEventListener("mouseleave", () => {
+        subcategoryBar.style.display = "none";
+    });
+}
+loadCart();
+
+</script>
+
+</body>
+</html>

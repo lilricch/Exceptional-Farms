@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Exceptional Farms</title>
+    <link rel="stylesheet" href="Assets/index.css">
+    <link rel="stylesheet" href="Assets/product-view.css">
+    <link rel="icon" type="image/x-icon" href="Assets/favicon.ico">
+</head>
+<body>
+
+<header>
+    <img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo">
+    <h1>Product Details</h1>
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">Cart</a>
+</nav>
+
+<main class="product-view-container">
+    <div class="breadcrumb">
+        <a href="products.html">Shop</a> &gt; <span id="breadcrumb-name">Product</span>
+    </div>
+
+    <div class="product-wrapper">
+        <div class="product-image-section">
+            <img id="productImage" src="" alt="Product Image">
+        </div>
+
+        <div class="product-info-section">
+            <h2 id="productName">Loading...</h2>
+            <p class="category-tag" id="productCategory"></p>
+            
+            <div class="price-box">
+                GH₵ <span id="productPrice">0.00</span>
+            </div>
+
+            <div class="description-box">
+                <h3>Description</h3>
+                <p id="productDescription">Loading details...</p>
+            </div>
+
+            <div class="action-box">
+                <div class="qty-wrapper">
+                    <label for="qty">Quantity:</label>
+                    <input type="number" id="qty" min="1" value="1">
+                </div>
+                
+                <button id="addToCartBtn" class="btn-add">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    © 2026 Exceptional Farms
+    <div class="legal-links">
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="terms.html">Terms &amp; Conditions</a> |
+        <a href="disclaimer.html">Disclaimer</a> |
+        <a href="return.html">Return Policy</a> |
+        <a href="shipping.html">Shipping Policy</a>
+    </div>
+</footer>
+
+<a href="https://wa.me/233544223416" class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<script src="Assets/product-data.js"></script>
+<script>
+    // Toggle Mobile Menu
+    function toggleMenu(){
+        document.querySelector("nav").classList.toggle("show");
+    }
+
+    // Load Product Data
+    const params = new URLSearchParams(window.location.search);
+    const id = Number(params.get("id"));
+    
+    const allProducts = (typeof products !== 'undefined') ? products : [];
+    const product = allProducts.find(p => p.id === id);
+
+    if (product) {
+        document.title = product.name + " - Exceptional Farms";
+        
+        document.getElementById("breadcrumb-name").textContent = product.name;
+        document.getElementById("productName").textContent = product.name;
+        document.getElementById("productImage").src = product.image;
+        document.getElementById("productImage").alt = product.name;
+        document.getElementById("productPrice").textContent = product.price.toFixed(2);
+        document.getElementById("productCategory").textContent = product.category.toUpperCase();
+        document.getElementById("productDescription").textContent = product.description || "No description available.";
+
+        // Add to Cart Logic
+        document.getElementById("addToCartBtn").onclick = function () {
+            let qtyInput = document.getElementById("qty");
+            let qty = parseInt(qtyInput.value);
+
+            if (isNaN(qty) || qty < 1) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            
+            // Check if item already exists in cart
+            let existingItem = cart.find(item => item.name === product.name);
+
+            if (existingItem) {
+                existingItem.qty = (existingItem.qty || 1) + qty;
+            } else {
+                cart.push({
+                    name: product.name,
+                    price: product.price,
+                    qty: qty,
+                    image: product.image
+                });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            
+            // Visual Feedback
+            showNotification(product.name + " added to cart!");
+        };
+    } else {
+        document.querySelector(".product-wrapper").innerHTML = "<h2>Product not found.</h2><a href='products.html' class='btn'>Back to Shop</a>";
+    }
+
+    function showNotification(message) {
+        const existing = document.querySelector(".notification");
+        if (existing) existing.remove();
+        
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.innerHTML = "✓ " + message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>

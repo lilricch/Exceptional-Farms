@@ -1,0 +1,21 @@
+# Netlify redirects and rewrites configuration
+
+# Redirect www to non-www
+https://www.exceptionalfarms.gh/* https://exceptionalfarms.gh/:splat 301!
+
+# Redirect old .html extensions (optional - for cleaner URLs)
+# /products.html /products 301!
+# /contact.html /contact 301!
+
+# Serve sitemap and robots at root
+/sitemap.xml /sitemap.xml 200
+/robots.txt /robots.txt 200
+
+# Custom error pages (optional - create 404.html if needed)
+/* /index.html 404
+
+# Security: Prevent access to hidden files/folders
+/.* / 404
+
+# Redirect to HTTPS (handled automatically by Netlify)
+# All traffic is forced to HTTPS by default
