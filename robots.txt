@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Location of the sitemap
-Sitemap: https://exceptionalfarms.gh/sitemap.xml
+Sitemap: https://exceptionalfarms.store/sitemap.xml
