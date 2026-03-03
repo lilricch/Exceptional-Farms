@@ -117,6 +117,9 @@
         <div class="payment-options">
             <label><input type="radio" name="payment" value="Paystack" checked> Paystack</label>
         </div>
+        <div style="background: #fffbe6; border: 1px solid #ffe58f; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px;">
+            <strong>Coming Soon:</strong> Paystack payment integration is coming soon.
+        </div>
 
         <button class="checkout-btn" onclick="checkout()">Complete Payment</button>
     </div>
@@ -147,13 +150,18 @@ function toggleMenu() {
 
 function loadCart() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let table = document.getElementById("cart-table");
+    let tableBody = document.getElementById("cart-table").getElementsByTagName('tbody')[0];
+    if (!tableBody) { // Create tbody if it doesn't exist
+        tableBody = document.createElement('tbody');
+        document.getElementById("cart-table").appendChild(tableBody);
+    }
+    tableBody.innerHTML = ""; // Clear the table body
     let grandTotal = 0;
 
+    // Re-populate the table
     cart.forEach((item, index) => {
-        let row = table.insertRow();
-
-        row.insertCell(0).innerHTML = item.name;
+        let row = tableBody.insertRow();
+        row.insertCell(0).innerHTML = `<img src="${item.image || 'Assets/logo.jpg'}" alt="${item.name}" style="width:50px; height:50px; object-fit:cover; vertical-align: middle; margin-right: 10px;"> ${item.name}`;
         row.insertCell(1).innerHTML = item.price.toFixed(2);
 
 
@@ -161,7 +169,7 @@ function loadCart() {
         qtyCell.innerHTML = `
             <div class="qty-box">
                 <button onclick="changeQty(${index}, -1)">-</button>
-                <input type="number" min="1" value="${item.qty || 1}" onchange="updateQty(${index}, this.value)">
+                <input type="number" min="1" value="${item.qty || 1}" onchange="updateQty(${index}, this.value)" aria-label="Quantity for ${item.name}">
                 <button onclick="changeQty(${index}, 1)">+</button>
             </div>
         `;
@@ -195,25 +203,25 @@ function changeQty(index, amount) {
     if (cart[index].qty < 1) cart[index].qty = 1;
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload();
+    loadCart(); // Re-render the cart without reloading the page
 }
 
 function updateQty(index, value) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let qty = parseInt(value);
 
-    if (isNaN(qty) || qty < 1) qty = 1;
+    if (isNaN(qty) || qty < 1) return; // Or set to 1, but returning prevents bad input
 
     cart[index].qty = qty;
     localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload();
+    loadCart(); // Re-render the cart
 }
 
 function removeItem(index) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload();
+    loadCart(); // Re-render the cart
 }
 
 
