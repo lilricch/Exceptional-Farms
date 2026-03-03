@@ -114,7 +114,7 @@
             let existingItem = cart.find(item => item.name === product.name);
 
             if (existingItem) {
-                existingItem.qty = (existingItem.qty || 0) + qty;
+                existingItem.qty = (existingItem.qty || 1) + qty;
             } else {
                 cart.push({
                     name: product.name,
@@ -130,12 +130,7 @@
             showNotification(product.name + " added to cart!");
         };
     } else {
-        const productWrapper = document.querySelector(".product-wrapper");
-        productWrapper.innerHTML = `
-            <h2>Product Not Found</h2>
-            <p>Sorry, we couldn't find a product with ID <strong>${id}</strong>.</p>
-            <p>This can happen if you are viewing a cached version of the site. Please try a hard refresh (Ctrl+F5) or check if the product exists on the main shop page.</p>
-            <a href='products.html' class='btn'>Back to Shop</a>`;
+        document.querySelector(".product-wrapper").innerHTML = "<h2>Product not found.</h2><a href='products.html' class='btn'>Back to Shop</a>";
     }
 
     function showNotification(message) {

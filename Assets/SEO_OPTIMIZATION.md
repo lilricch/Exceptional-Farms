@@ -23,7 +23,7 @@
 
 ### 4. **Site Maps & Robots**
 - **robots.txt**: Allows search engines to crawl all pages, blocks admin/private
-- **sitemap.xml**: Lists all 10 pages with priority and change frequency
+- **sitemap.xml**: Lists all 10 key pages (`index`, `products`, `contact`, `cart`, and all policy pages) with priority and change frequency.
 - Helps search engines discover and index pages efficiently
 
 ### 5. **Image Optimization**
@@ -124,5 +124,5 @@
 
 ---
 
-*Last Updated: 2026-02-26*
+*Last Updated: 2026-03-02*
 *Generated for: Exceptional Farms*
