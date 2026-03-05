@@ -117,9 +117,6 @@
         <div class="payment-options">
             <label><input type="radio" name="payment" value="Paystack" checked> Paystack</label>
         </div>
-        <div style="background: #fffbe6; border: 1px solid #ffe58f; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px;">
-            <strong>Coming Soon:</strong> Paystack payment integration is coming soon.
-        </div>
 
         <button class="checkout-btn" onclick="checkout()">Complete Payment</button>
     </div>
@@ -281,7 +278,7 @@ function checkout() {
     }
 
     let handler = PaystackPop.setup({
-        key: "pk_test_9a412e4c79548be29be58ae0fcfa0125e3a71908",
+        key: "pk_live_00371b8f87e1a2b94cd5c49fb03d4d0911f89ac8",
         email: customerEmail,
         amount: total * 100,
         currency: "GHS",
