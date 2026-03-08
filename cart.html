@@ -41,11 +41,11 @@
 
 
 <header>
-    <img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo">
+    <a href="index.html"><img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo"></a>
 
     <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation menu">☰</div>
 
-    <nav id="nav-menu" role="navigation" aria-label="Main navigation">
+    <nav role="navigation" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="products.html">Shop</a>
         <a href="contact.html">Contact</a>
@@ -177,7 +177,7 @@
 <script>
 
 function toggleMenu() {
-    document.getElementById("nav-menu").classList.toggle("active");
+    document.querySelector('nav[role="navigation"]').classList.toggle("show");
 }
 
 
@@ -223,6 +223,15 @@ function loadCart() {
     });
 
     document.getElementById("cart-total").innerHTML = grandTotal.toFixed(2);
+ 
+    // If cart is empty, hide the payment section and show a message
+    const paymentSection = document.querySelector('.payment-section');
+    if (cart.length === 0) {
+        paymentSection.style.display = 'none';
+        tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Your cart is empty. <a href="products.html">Continue Shopping</a></td></tr>';
+    } else {
+        paymentSection.style.display = 'block';
+    }
 }
 
 

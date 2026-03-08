@@ -308,14 +308,15 @@ footer {
     nav {
         display: none;
         flex-direction: column;
-        position: relative; /* Changed from absolute to flow naturally */
-        top: 0;
-        right: 0;
-        background: white;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #1b5e20; /* Match header for consistency */
         width: 100%;
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         z-index: 101;
         padding: 10px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
     }
 
     nav.show {
@@ -325,8 +326,9 @@ footer {
     nav a {
         padding: 15px 20px;
         text-align: center;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
         margin: 0;
+        color: white; /* Ensure text is visible on dark background */
     }
 
     .category-bar {

@@ -21,6 +21,10 @@
     <link rel="apple-touch-icon" href="Assets/logo.jpg">
     <link rel="stylesheet" href="Assets/contact.css">
     <style>
+        header {
+            /* This is crucial for the absolute positioning of the mobile nav */
+            position: relative;
+        }
         header .logo {
             height: 120px;
             width: auto;
@@ -49,6 +53,7 @@
         }
         .map-container h2 {
             margin-bottom: 20px;
+            color: white;
         }
         .map-container iframe {
             width: 100%;
@@ -114,7 +119,80 @@
             padding: 0 15px;
         }
         .section-header h2 {
+            color: white;
+        }
+        .section-header p {
+            color: white;
+        }
+        footer {
+            background: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        footer .legal-links a {
+            color: #e8f5e9;
+        }
+
+        /* Added to style the contact form for a consistent look */
+        .form-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .form-card h2 {
             color: #1b5e20;
+            text-align: center;
+            margin-top: 0;
+        }
+        #contactForm input, #contactForm textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #0b7a2d;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: "Poppins", Arial, sans-serif;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        #contactForm .btn {
+            width: 100%;
+            background: #0b7a2d;
+            padding: 12px 20px;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+        /* Mobile navigation styles to fix broken menu */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #1b5e20;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+            }
+            nav.show {
+                display: flex;
+            }
+            nav a {
+                padding: 15px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+                color: white;
+            }
         }
     </style>
     <script type="application/ld+json">
@@ -142,11 +220,11 @@
 <body>
 
 <header>
-    <img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo">
+    <a href="index.html"><img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo"></a>
     <h1>Contact Us</h1>
     <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation menu">☰</div>
 </header>
-
+ 
 <nav role="navigation" aria-label="Main navigation">
     <a href="index.html">Home</a>
     <a href="products.html">Shop</a>
@@ -381,7 +459,7 @@
 <script>
 
 function toggleMenu() {
-    document.querySelector("nav").classList.toggle("show");
+    document.querySelector('nav[role="navigation"]').classList.toggle("show");
 }
 
 
