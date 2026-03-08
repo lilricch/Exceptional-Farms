@@ -194,6 +194,11 @@
                 color: white;
             }
         }
+        /* Wrapper to fix mobile menu positioning and z-index */
+        .nav-wrapper {
+            position: relative;
+            z-index: 1001;
+        }
     </style>
     <script type="application/ld+json">
     {
@@ -219,18 +224,20 @@
 </head>
 <body>
 
-<header>
-    <a href="index.html"><img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo"></a>
-    <h1>Contact Us</h1>
-    <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation menu">☰</div>
-</header>
- 
-<nav role="navigation" aria-label="Main navigation">
-    <a href="index.html">Home</a>
-    <a href="products.html">Shop</a>
-    <a href="contact.html">Contact</a>
-    <a href="cart.html">Cart</a>
-</nav>
+<div class="nav-wrapper">
+    <header>
+        <a href="index.html"><img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo"></a>
+        <h1>Contact Us</h1>
+        <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation menu">☰</div>
+    </header>
+     
+    <nav role="navigation" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart</a>
+    </nav>
+</div>
 
 
 <div class="category-bar">

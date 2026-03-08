@@ -27,22 +27,29 @@
         .btn-add {
             flex-grow: 1; /* Allows button to fill available space */
         }
+        /* Wrapper to fix mobile menu positioning and z-index */
+        .nav-wrapper {
+            position: relative;
+            z-index: 1001;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <a href="index.html"><img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo"></a>
-    <h1>Product Details</h1>
-    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-</header>
+<div class="nav-wrapper">
+    <header>
+        <a href="index.html"><img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo"></a>
+        <h1>Product Details</h1>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Shop</a>
-    <a href="contact.html">Contact</a>
-    <a href="cart.html">Cart</a>
-</nav>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart</a>
+    </nav>
+</div>
 
 <main class="product-view-container">
     <div class="breadcrumb">

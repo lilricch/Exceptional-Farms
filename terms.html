@@ -5,21 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms & Conditions - Exceptional Farms</title>
     <link rel="stylesheet" href="Assets/index.css">
+    <style>
+        /* Wrapper to fix mobile menu positioning and z-index */
+        .nav-wrapper {
+            position: relative;
+            z-index: 1001;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-    <a href="index.html"><img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo"></a>
-    <h1>Terms &amp; Conditions</h1>
-    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-</header>
+<div class="nav-wrapper">
+    <header>
+        <a href="index.html"><img src="Assets/logo.jpg" alt="Exceptional Farms Logo" class="logo"></a>
+        <h1>Terms &amp; Conditions</h1>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Shop</a>
-    <a href="contact.html">Contact</a>
-    <a href="cart.html">Cart</a>
-</nav>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart</a>
+    </nav>
+</div>
 
 <main class="content" style="padding:40px 20px; max-width:800px; margin:auto;">
     <h2>Website Terms of Use</h2>
