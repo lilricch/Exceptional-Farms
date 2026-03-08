@@ -40,6 +40,83 @@
             }
         }
     </style>
+    <style>
+        /* Styles for Google Maps */
+        .map-container {
+            margin: 40px 0;
+            padding: 0 15px;
+            text-align: center;
+        }
+        .map-container h2 {
+            margin-bottom: 20px;
+        }
+        .map-container iframe {
+            width: 100%;
+            max-width: 900px; /* Adjust to fit your layout */
+            height: 450px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+    <style>
+        /* Additional styles for layout and responsiveness */
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px auto 40px auto;
+            max-width: 1200px;
+            padding: 0 15px;
+        }
+        .faq-container {
+            display: grid;
+            /* This creates responsive columns that wrap automatically */
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 15px;
+        }
+
+        /* Styles for the FAQ accordion functionality */
+        .faq-question {
+            transition: background-color 0.3s ease;
+        }
+        .faq-question.open {
+            background-color: #e8f5e9;
+        }
+        .faq-answer {
+            background: #fdfdfd;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            border-bottom: 1px solid #eee;
+        }
+        .faq-answer.open {
+            padding: 20px;
+            max-height: 300px; /* Adjust if answers are very long */
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                /* Add padding on mobile for the contact form container */
+                padding: 0 15px;
+            }
+            .faq-container {
+                gap: 10px;
+            }
+        }
+        /* Added to fix layout issues */
+        .section-header {
+            text-align: center;
+            margin: 40px auto 20px;
+            max-width: 900px;
+            padding: 0 15px;
+        }
+        .section-header h2 {
+            color: #1b5e20;
+        }
+    </style>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -106,8 +183,10 @@
     </div>
 </div>
 
-<h2>Get in Touch</h2>
-<p>Multiple ways to reach us:</p>
+<div class="section-header">
+    <h2>Get in Touch</h2>
+    <p>Multiple ways to reach us:</p>
+</div>
 
 <div class="contact-info">
     <div class="contact-item">
@@ -124,9 +203,23 @@
     </div>
 </div> 
 
+<!-- Google Maps Section -->
+<div class="map-container">
+    <h2>Find Us on the Map</h2>
+    <!-- 
+      INSTRUCTIONS: 
+      1. Go to Google Maps and find your exact business location.
+      2. Click "Share", then "Embed a map".
+      3. Copy the HTML code and paste it below, replacing this placeholder iframe.
+    -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.4487008455962!2d-0.31075072582346286!3d5.64803619433324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdfa10077eb6a39%3A0xba8f110ae99c65fc!2sEXCEPTIONAL%20FARMS!5e0!3m2!1sen!2sgh!4v1772987736910!5m2!1sen!2sgh" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
 
-<div class="faq-container">
+
+<div class="section-header">
     <h2>Frequently Asked Questions</h2>
+</div>
+<div class="faq-container">
     
 
     <div class="faq-category">

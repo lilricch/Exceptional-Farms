@@ -115,10 +115,46 @@
 
         <h3>Payment Method</h3>
         <div class="payment-options">
-            <label><input type="radio" name="payment" value="Paystack" checked> Paystack</label>
+            <label><input type="radio" name="payment" value="Paystack" checked> Pay with Card / MoMo (via Paystack)</label>
+            <label><input type="radio" name="payment" value="MomoDirect"> Pay with Mobile Money (Direct)</label>
         </div>
 
-        <button class="checkout-btn" onclick="checkout()">Complete Payment</button>
+        <button id="paystack-btn" class="checkout-btn" onclick="checkout()">Complete Payment</button>
+
+        <!-- MoMo Direct Payment Section -->
+        <div id="momo-payment-details" style="display: none;">
+            <h3>Direct Mobile Money Payment</h3>
+            <p><strong>Step 1:</strong> Send the total amount to the details below. <strong>Use the generated reference for the transaction.</strong></p>
+            
+            <ul style="list-style: none; padding: 15px; background: #e8f5e9; border-radius: 8px; margin-bottom: 20px;">
+                <li><strong>Number:</strong> 0598995799</li>
+                <li><strong>Account Name:</strong> Exceptional Farms</li>
+                <li><strong>Merchant ID:</strong> 805782</li>
+                <li><strong>Your Order Reference:</strong> <strong id="order-ref" style="color: #1b5e20; font-size: 1.1em;"></strong></li>
+            </ul>
+
+            <p><strong>Step 2:</strong> After sending the money, fill the form below and click the button to confirm your order on WhatsApp.</p>
+            
+            <div class="checkout-form" style="border: none; padding: 0; margin-bottom: 0;">
+                <div class="form-group">
+                    <label for="momo-name">Name Used for MoMo Payment</label>
+                    <input type="text" id="momo-name" placeholder="The name you used for payment">
+                </div>
+                <div class="form-group">
+                    <label for="momo-tx-id">Mobile Money Transaction ID</label>
+                    <input type="text" id="momo-tx-id" placeholder="e.g., 9876543210">
+                </div>
+                <div class="form-group">
+                    <label for="momo-amount">Amount Paid (GH₵)</label>
+                    <input type="text" id="momo-amount" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="momo-ref">Order Reference</label>
+                    <input type="text" id="momo-ref" readonly>
+                </div>
+                <button class="checkout-btn whatsapp-confirm-btn" onclick="confirmMomoPayment()">Confirm on WhatsApp</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -320,29 +356,140 @@ function checkout() {
     handler.openIframe();
 }
 
-const categoryBar = document.querySelector(".category-bar");
-const subcategoryBar = document.querySelector(".subcategory-bar");
-
-if (categoryBar && subcategoryBar) {
-    categoryBar.addEventListener("mouseenter", () => {
-        subcategoryBar.style.display = "flex";
-    });
+function generateOrderReference() {
+    const refElement = document.getElementById('order-ref');
+    const refInputElement = document.getElementById('momo-ref');
     
-    categoryBar.addEventListener("mouseleave", () => {
-        if (!subcategoryBar.matches(":hover")) {
-            subcategoryBar.style.display = "none";
-        }
-    });
-    
-    subcategoryBar.addEventListener("mouseenter", () => {
-        subcategoryBar.style.display = "flex";
-    });
-    
-    subcategoryBar.addEventListener("mouseleave", () => {
-        subcategoryBar.style.display = "none";
-    });
+    // Only generate if it's not already there or the section is becoming visible
+    if (!refElement.innerText) {
+        const randomNumber = Math.floor(100000 + Math.random() * 900000);
+        const reference = `EF-${randomNumber}`;
+        refElement.innerText = reference;
+        refInputElement.value = reference;
+    }
 }
-loadCart();
+
+function confirmMomoPayment() {
+    // Delivery Details
+    const customerName = document.getElementById("customer-name").value.trim();
+    const customerPhone = document.getElementById("customer-phone").value.trim();
+    const customerAddress = document.getElementById("customer-address").value.trim();
+    const customerEmail = document.getElementById("customer-email").value.trim();
+
+    // Payment Details
+    const name = document.getElementById('momo-name').value.trim();
+    const txId = document.getElementById('momo-tx-id').value.trim();
+    const amount = document.getElementById('momo-amount').value.trim();
+    const reference = document.getElementById('momo-ref').value.trim();
+
+    // Validate Delivery Details first
+    if (!customerName) {
+        alert("Please enter your full name in the Delivery Details.");
+        return;
+    }
+    if (!customerPhone || customerPhone.length < 9) {
+        alert("Please enter a valid phone number in the Delivery Details.");
+        return;
+    }
+    if (!customerAddress) {
+        alert("Please enter your delivery address in the Delivery Details.");
+        return;
+    }
+    if (!customerEmail) {
+        alert("Please enter your email address in the Delivery Details.");
+        return;
+    }
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(customerEmail)) {
+        alert("Please enter a valid email address in the Delivery Details.");
+        return;
+    }
+
+    // Validate MoMo specific fields
+    if (!name || !txId) {
+        alert('Please fill in the Name Used for MoMo Payment and the Transaction ID.');
+        return;
+    }
+
+    const waNumber = '233544223416';
+    const message = `Hello Exceptional Farms, I have made a payment.\n\n` +
+                    `*Order Confirmation*\n` +
+                    `--------------------\n` +
+                    `*Name Used for Payment:* ${name}\n` +
+                    `*Transaction ID:* ${txId}\n` +
+                    `*Amount Paid:* GH₵ ${amount}\n` +
+                    `*Order Reference:* ${reference}\n\n` +
+                    `*Delivery Details*\n` +
+                    `------------------\n` +
+                    `*Recipient Name:* ${customerName}\n` +
+                    `*Phone:* ${customerPhone}\n` +
+                    `*Address:* ${customerAddress}\n` +
+                    `*Email:* ${customerEmail}\n\n` +
+                    `Please confirm my order.`;
+
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(waUrl, '_blank');
+
+    alert('Your order confirmation is being sent via WhatsApp. Your cart will now be cleared.');
+
+    localStorage.removeItem("cart");
+    loadCart();
+    
+    // Reset payment view
+    document.getElementById('momo-payment-details').style.display = 'none';
+    document.getElementById('paystack-btn').style.display = 'block';
+    document.querySelector('input[name="payment"][value="Paystack"]').checked = true;
+    document.getElementById('order-ref').innerText = ''; // Clear ref for next time
+}
+
+function handlePaymentMethodChange(method) {
+    const paystackBtn = document.getElementById('paystack-btn');
+    const momoDetails = document.getElementById('momo-payment-details');
+
+    if (method === 'MomoDirect') {
+        paystackBtn.style.display = 'none';
+        momoDetails.style.display = 'block';
+        generateOrderReference();
+        // Pre-fill fields from delivery details
+        document.getElementById('momo-name').value = document.getElementById('customer-name').value;
+        document.getElementById('momo-amount').value = document.getElementById('cart-total').innerText;
+    } else { // Paystack
+        paystackBtn.style.display = 'block';
+        momoDetails.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadCart();
+
+    const categoryBar = document.querySelector(".category-bar");
+    const subcategoryBar = document.querySelector(".subcategory-bar");
+
+    if (categoryBar && subcategoryBar) {
+        categoryBar.addEventListener("mouseenter", () => { subcategoryBar.style.display = "flex"; });
+        categoryBar.addEventListener("mouseleave", () => { if (!subcategoryBar.matches(":hover")) { subcategoryBar.style.display = "none"; } });
+        subcategoryBar.addEventListener("mouseenter", () => { subcategoryBar.style.display = "flex"; });
+        subcategoryBar.addEventListener("mouseleave", () => { subcategoryBar.style.display = "none"; });
+    }
+
+    document.querySelectorAll('input[name="payment"]').forEach(elem => {
+        elem.addEventListener("change", function(event) {
+            handlePaymentMethodChange(event.target.value);
+        });
+    });
+
+    // Auto-fill momo name when customer name changes
+    document.getElementById('customer-name').addEventListener('input', (e) => {
+        document.getElementById('momo-name').value = e.target.value;
+    });
+
+    // Initial check in case of page refresh
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    if (selectedPayment) {
+        handlePaymentMethodChange(selectedPayment.value);
+    }
+});
 
 </script>
 

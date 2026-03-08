@@ -260,6 +260,15 @@ td {
     transition: 0.3s;
 }
 
+.whatsapp-confirm-btn {
+    background: #25D366;
+    border-color: #25D366;
+}
+
+.whatsapp-confirm-btn:hover {
+    background: #128C7E;
+}
+
 .checkout-btn:hover {
     background: #074c1d;
 }

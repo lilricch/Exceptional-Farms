@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="Assets/index.css">
     <link rel="stylesheet" href="Assets/product-view.css">
     <link rel="icon" type="image/x-icon" href="Assets/favicon.ico">
+    <style>
+        /* Added for responsive product view layout */
+        .product-wrapper {
+            display: flex;
+            flex-wrap: wrap; /* Allows columns to stack on small screens */
+            gap: 30px;
+        }
+        .product-image-section, .product-info-section {
+            flex: 1; /* Each column takes up equal space */
+            min-width: 320px; /* Columns will stack if they can't be at least this wide */
+        }
+        .action-box {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap; /* Stacks quantity and button on small screens */
+        }
+        .btn-add {
+            flex-grow: 1; /* Allows button to fill available space */
+        }
+    </style>
 </head>
 <body>
 
