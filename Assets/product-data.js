@@ -195,5 +195,21 @@ const products = [
         image: "Assets/Automatic Debeaker with counter.jpg",
         category: "others",
         description: "Advanced automatic debeaking machine equipped with a counter to track the number of birds processed."
+    },
+    {
+        id: 25,
+        name: "Fowl Pox Vaccinator",
+        price: 120,
+        image: "Assets/fowl pox vaccinator.jpg",
+        category: "others",
+        description: "A specialized tool for administering fowl pox vaccine to poultry, ensuring accurate dosage and safety."
+    },
+    {
+        id: 26,
+        name: "3rd Newcastle Vaccinator",
+        price: 300,
+        image: "Assets/3rd newcastle vaccinator.jpg",
+        category: "others",
+        description: "An efficient vaccinator designed for the application of Newcastle disease vaccines to your flock."
     }
 ];
