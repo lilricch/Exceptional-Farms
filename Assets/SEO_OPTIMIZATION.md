@@ -33,11 +33,8 @@
 
 ### 6. **Performance Optimizations**
 - Added `<link rel="preload">` for logo (critical resource)
-- Implemented lazy loading for below-fold images
-- Created `.htaccess` with GZIP compression and browser caching rules
-  - Images cached for 1 year
-  - CSS/JS cached for 1 month
-  - HTML cached for 2 weeks
+- Implemented lazy loading for below-fold images.
+- Caching and GZIP compression are handled automatically by GitHub Pages servers.
 
 ### 7. **Accessibility (WCAG 2.1 Compliance)**
 - Added `aria-label` to all menu toggles ("Toggle navigation menu")
@@ -58,7 +55,7 @@
 | Feature | Status | Impact |
 |---------|--------|--------|
 | Meta Descriptions | ✅ All pages | 60-70% CTR improvement |
-| Open Graph Tags | ✅ All pages | Social sharing previews |
+| Open Graph Tags | ✅ All pages | Rich social sharing previews |
 | Structured Data | ✅ 3 schemas | Rich snippets in SERPs |
 | Page Speed (lazy loading) | ✅ Implemented | 20-30% faster load |
 | Mobile Responsive | ✅ Pre-existing | Ranking factor |
@@ -81,15 +78,10 @@
 
 ## 📝 Deployment Notes
 
-### For Netlify (Static Hosting)
-- Delete `.htaccess` (Netlify uses `_headers` and `_redirects` files instead)
-- Create `_redirects` file for URL management if needed
-- Ensure `robots.txt` and `sitemap.xml` are publicly accessible
-
-### For Traditional Hosting
-- Keep `.htaccess` file for compression and caching
-- Ensure `mod_rewrite` and `mod_deflate` are enabled
-- Verify MIME types are correctly set
+### For GitHub Pages
+- Ensure your custom domain is correctly configured in your repository's settings under `Pages`.
+- Make sure all files (`robots.txt`, `sitemap.xml`, etc.) are in the root of the branch you are deploying from (e.g., `main` or `gh-pages`).
+- GitHub Pages does not use `.htaccess` or Netlify's `_headers` files. Caching and security headers are managed by GitHub.
 
 ---
 
