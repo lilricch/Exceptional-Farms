@@ -211,5 +211,13 @@ const products = [
         image: "Assets/3rd newcastle vaccinator.jpg",
         category: "others",
         description: "An efficient vaccinator designed for the application of Newcastle disease vaccines to your flock."
+    },
+    {
+        id: 27,
+        name: "Large Size Transport Cage",
+        price: 460,
+        image: "Assets/large size transport cage.jpg",
+        category: "others",
+        description: "A large and sturdy transport cage for poultry, measuring 96x57x27cm. Ideal for safely moving birds."
     }
 ];

@@ -32,6 +32,19 @@
             position: relative;
             z-index: 1001;
         }
+        /* Style for the new back link */
+        .breadcrumb-nav {
+            margin: 15px 0;
+        }
+        .breadcrumb-nav a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #1b5e20;
+            font-size: 16px;
+        }
+        .breadcrumb-nav a:hover {
+            color: #66bb6a;
+        }
     </style>
 </head>
 <body>
@@ -54,6 +67,11 @@
 <main class="product-view-container">
     <div class="breadcrumb">
         <a href="products.html">Shop</a> &gt; <span id="breadcrumb-name">Product</span>
+    </div>
+
+    <div class="breadcrumb-nav">
+        <!-- This link will be dynamically updated by JavaScript -->
+        <a id="back-to-category-link" href="products.html">‹ Back to Shop</a>
     </div>
 
     <div class="product-wrapper">
@@ -111,6 +129,18 @@
     // Load Product Data
     const params = new URLSearchParams(window.location.search);
     const id = Number(params.get("id"));
+    const returnCategory = params.get('return_to_category');
+    const backLink = document.getElementById('back-to-category-link');
+
+    // Update the "Back to" link if a category is specified in the URL
+    if (returnCategory && backLink) {
+        // Capitalize the first letter for display
+        const categoryName = returnCategory.charAt(0).toUpperCase() + returnCategory.slice(1);
+        
+        // Set the link to point to the correct category page
+        backLink.href = `products.html?category=${returnCategory}`;
+        backLink.innerHTML = `‹ Back to ${categoryName}`;
+    }
     
     const allProducts = (typeof products !== 'undefined') ? products : [];
     const product = allProducts.find(p => p.id === id);

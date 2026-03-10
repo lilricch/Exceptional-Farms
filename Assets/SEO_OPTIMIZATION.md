@@ -42,12 +42,6 @@
 - Proper semantic HTML structure with `<header>`, `<nav>`, `<main>`, `<footer>`
 - All images have descriptive alt text
 
-### 8. **Security Headers** (in .htaccess)
-- X-Content-Type-Options: nosniff (prevents MIME sniffing)
-- X-Frame-Options: SAMEORIGIN (prevents clickjacking)
-- X-XSS-Protection: 1; mode=block (legacy XSS protection)
-- Referrer-Policy: strict-origin-when-cross-origin (privacy)
-
 ---
 
 ## 📊 SEO Metrics Summary
@@ -59,7 +53,7 @@
 | Structured Data | ✅ 3 schemas | Rich snippets in SERPs |
 | Page Speed (lazy loading) | ✅ Implemented | 20-30% faster load |
 | Mobile Responsive | ✅ Pre-existing | Ranking factor |
-| GZIP Compression | ✅ .htaccess | 50-70% smaller files |
+| GZIP Compression | ✅ GitHub Pages | 50-70% smaller files |
 | Canonical URLs | ✅ All pages | Avoid duplicates |
 | Robots.txt | ✅ Created | Crawler guidance |
 | Sitemap.xml | ✅ Created | Better indexing |
